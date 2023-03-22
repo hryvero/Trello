@@ -1,0 +1,45 @@
+GET http://localhost:3001/tasks/
+
+###
+GET http://localhost:3001/tasks/641b0c9b12f7837454e99afd
+
+###
+POST http://localhost:3001/tasks/
+Content-Type: application/json
+
+{
+      "title": "Drink ",
+      "column": 
+ 
+}
+
+###
+PUT http://localhost:3001/tasks/641b117212f7837454e99b03
+Content-Type: application/json
+
+{
+      "title":"Drink more water"
+}
+
+###
+DELETE http://localhost:3001/tasks/641b0c9b12f7837454e99afd
+
+////////////////////////////
+# COLUMN REQUESTS
+###
+GET http://localhost:3001/columns/
+
+
+###
+POST http://localhost:3001/columns/
+Content-Type: application/json
+
+{
+      "title": "Done"
+}
+
+###
+DELETE http://localhost:3001/columns/641ae07aaae680fe9fc3bb86
+
+
+
