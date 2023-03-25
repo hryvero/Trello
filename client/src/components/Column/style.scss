@@ -1,0 +1,23 @@
+.column {
+      width: 18%;
+      height: fit-content;
+      margin: 50px 30px;
+      background-color: aliceblue;
+}
+.card{
+      
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+     padding: 15px 10px;
+     border-radius: 8px;
+     box-shadow: 5px 5px 10px gray;
+
+     &__title{
+      display: flex;
+      justify-content: space-between;
+     }
+     &__title h3{
+      margin-bottom: 10px;
+     }
+}
