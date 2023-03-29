@@ -11,11 +11,7 @@ const api_base = 'http://127.0.0.1:3001';
 export function Column({ columnTitle, taskList, columnId, deleteCard,
 	updateTaskTitle, addTask, deleteTask }) {
 
-	// const [title, setTitle] = useState();
-	// const [open, setOpen] = useState(false)
 
-// console.log(taskList.map((i)=>i.title))
-// console.log(taskList)
 
 
 	return (

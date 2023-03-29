@@ -42,22 +42,23 @@ function App() {
 	// ------ TASK'S STATE ------
 	// Update Card Title && Update State
 
-	const addList = async (e) => {
-		e.preventDefault();
+	const addList = async (addedTitle) => {
 		const data = await fetch(api_base + "/columns/", {
 			method: "POST",
 			headers: {
+				'Accept': 'application/json',
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				title: list.title,
+				title: addedTitle,
 			})
 		}).then(res => {
-			res.json()
-		});
+			return res.json()
+		})
+		setList([...list, data])
 	}
-	const deleteList = async (e, id) => {
-		e.stopPropagation();
+	const deleteList = async (id) => {
+
 		const data = await fetch(api_base + '/columns/' + id, { method: "DELETE" }).then(res => res.json());
 
 

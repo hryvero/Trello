@@ -16,7 +16,7 @@ export function AddList({addList}) {
               <div className='add__list' onClick={()=>setOpen(true)}>
                   <AddIcon />
                  <span className="add__list-text"> Додайте ще один список</span>
-                 {open ? <AddListForm addList={addList}  setOpen={setOpen}/> : null}
+                 {open ? <AddListForm addList={addList}  setOpen={setOpen} open={open}/> : null}
             </div>
             
             
