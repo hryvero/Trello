@@ -6,18 +6,18 @@ import { AddListForm } from './AddListForm';
 import "./style.scss"
 
 
-export function AddList(props) {
+export function AddList({addList}) {
 
-      const [add, setAdd]=useState(false);
+      const [open, setOpen]=useState(false);
 
       return (
             <div className="column">
 
-              <a className='add__list' href='#' onClick={()=>setAdd(!add)}>
+              <div className='add__list' onClick={()=>setOpen(true)}>
                   <AddIcon />
                  <span className="add__list-text"> Додайте ще один список</span>
-                 {add === true? <AddListForm/> : " "}
-            </a>
+                 {open ? <AddListForm addList={addList}  setOpen={setOpen}/> : null}
+            </div>
             
             
            </div>

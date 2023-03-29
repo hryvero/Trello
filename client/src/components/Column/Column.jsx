@@ -1,33 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Task } from '../Task';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { AddTask } from '../AddTask/AddTask';
 
 import "./style.scss"
 
-export function Column(props) {
-      
-      
-      return (
-            <div className="column">
-                  <div className="column__container">
-                        <div className="card">
-                              <div className="card__title">
-                                    <h3>{props.data.title}</h3>
-                                    
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                          height="24"
-                                          viewBox="0 0 24 24"
-                                          width="24">
-                                          <path d="M0 0h24v24H0z" fill="none" />
-                                          <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                                    </svg>
-                              </div>
-                              {/* {tasks?.length && tasks.map((task) => (<Task {...task} />))} */}
-                              <AddTask/>
-                        </div>
-                  </div>
-            </div>
-      );
+
+const api_base = 'http://127.0.0.1:3001';
+
+export function Column({ columnTitle, taskList, columnId, deleteCard,
+	updateTaskTitle, addTask, deleteTask }) {
+
+	// const [title, setTitle] = useState();
+	// const [open, setOpen] = useState(false)
+
+// console.log(taskList.map((i)=>i.title))
+// console.log(taskList)
+
+
+	return (
+		<div className="column">
+
+			<div className="card">
+				<div className="card__title">
+					<h3>{columnTitle}</h3>
+
+					<DeleteIcon onClick={() => deleteCard(columnId)} />
+				</div>
+				{taskList.map(curr => (
+					<Task
+						// Task Properties
+						taskTitle={curr.title}
+						taskId={curr.id}
+						updatedAt={curr.updatedAt}
+			
+						parentId={columnId}
+
+						// Task Functions
+						updateTaskTitle={updateTaskTitle}
+						deleteTask={deleteTask}/>))}
+
+
+				<AddTask addTask={addTask} parentId={columnId} />
+
+			</div>
+		</div>
+
+	);
 }
 
 export default Column;

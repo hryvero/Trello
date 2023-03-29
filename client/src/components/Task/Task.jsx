@@ -1,27 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 
 import "./style.scss"
 
-export function Task({ id, name, onEdit, onDelete }) {
-      return (
-            <div className="task">
-                <h4 className="task__title">{name}</h4>
-                
-                <div className="task__box">
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24">
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" /></svg>
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    width="24">
-                    <path d="M0 0h24v24H0z" fill="none" />
-                    <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-                  </svg>
-                </div>
-              </div>
-      );
+const api_base = 'http://127.0.0.1:3001';
+
+export function Task({ taskTitle,
+	taskId,
+	updatedAt,
+	parentId,
+	// Task Functions
+	updateTaskTitle,
+	deleteTask }) {
+
+
+
+	const [open, setOpen] = useState(false)
+	
+
+	const [newTaskTitle, setNewTaskTitle] = useState('');
+	const [taskTitleChangeBool, setTaskTitleChangeBool] = useState(false);
+
+
+const todayDate = new Date();
+const oldDate=new Date(updatedAt)
+
+console.log(todayDate.getHours())
+
+const difference = todayDate.getTime() - oldDate.getTime()
+
+let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+console.log(TotalDays + ' days to world Cup');
+
+	const handleUpdateSubmit = (e) => {
+			e.preventDefault();
+			if (newTaskTitle === ''){
+					return;
+			}
+			else{
+				 updateTaskTitle(taskId, newTaskTitle);
+				 setNewTaskTitle('');
+				 setTaskTitleChangeBool(!taskTitleChangeBool);
+				 setOpen(false)
+			}
+	}
+
+
+	return (
+		<div className="task">
+
+
+
+		
+				{open ?
+					            <form className="update-form" >
+											<input 
+													className="update-task" 
+													type="text" 
+													placeholder={taskTitle}
+													onChange={event => setNewTaskTitle(event.target.value)}
+											/>
+											<button onClick={handleUpdateSubmit}className='btn'>Submit </button>
+											<CloseIcon onClick={() => setOpen(false)} />
+									</form>
+					: <div className="content">
+						<h4 className="task__title">{taskTitle}</h4>
+						<p>Updated: {TotalDays} day ago</p>
+					<div className="task__box">
+		
+						<EditIcon onClick={() => setOpen(true)} />
+						<DeleteIcon onClick={() => deleteTask(taskId)} />	
+						</div>
+					</div>	}
+		
+		</div>
+	);
 }

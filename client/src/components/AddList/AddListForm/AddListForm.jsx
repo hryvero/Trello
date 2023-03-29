@@ -4,53 +4,52 @@ import { useState, useEffect } from 'react';
 
 import "./style.scss"
 
-const api_base="http://localhost:3001"
+const api_base = "http://localhost:3001"
 
 
-export function AddListForm(props){
+export function AddListForm({ open, setOpen }) {
 
-      const [close, setClose]=useState(true);
-      const [list, setList] = useState([]);
-      const [newList, setNewList] = useState([]);
+	const [title, setTitle] = useState('');
 
+	const handleClose = () => (e) => {
+		e.stopPropagation()
+		setOpen(false)
+	}
 
-      
-
-      const AddList = async(e) => {
-            e.preventDefault();
-            const data = await fetch(api_base + "/columns/", {
+	const addList = async (e) => {
+		e.preventDefault();
+		const data = await fetch(api_base + "/columns/", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json" 
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				 title: newList.title,
+				title: title,
 			})
-		}).then(res => res.json());
+		}).then(res => {
+			setOpen(false)
+			setTitle('')
+		});
+
+
+	
+		setTitle([...title, data]);
+
 
 		
-		console.log(data)
-		setList([...list, data]);
+	};
+	return (
+		<div className="form">
+			{open ? <div className='add-form'>
 
-		
-		setNewList("");
-         };
-      return (
-            <div className="form">
-            {close===true? <form className='add-form' action="">
-                 
-                  <input className='add-form__input' 
-                  type="text" 
-                  name="name" 
-                  placeholder="Увести назву списку..."  
-                  maxLength="512" 
-                  value={newList.title}/>
-                  <div className='add-form__buttons'>
-                        <button className='add-form__btn btn' onClick={AddList}>Додати список</button>
-                         <CloseIcon className='close' onClick={()=>setClose(!close)} />
-                  </div>
-            </form> : null} 
-            </div>
-      );
+				<input className='add-form__input' type="text" name="name" placeholder="Увести назву списку..."  maxLength="512"
+				 value={title} onChange={(e) => setTitle(e.target.value)} />
+				<div className='add-form__buttons'>
+					<button className='add-form__btn btn' onClick={addList}>Додати список</button>
+					<CloseIcon className='close' onClick={handleClose()} />
+				</div>
+			</div> : null}
+		</div>
+	);
 }
 

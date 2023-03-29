@@ -6,21 +6,22 @@ import "./style.scss"
 
 
 
-export function AddTask(props) {
+export function AddTask({addTask,parentId}) {
 
-      const [add, setAdd]= useState(false)
+   
+
+      const [open, setOpen] = useState(false)
 
       return (
-            
-             <a className='add__task'  href="#" onClick={()=>setAdd(!add)}>
-            
-            <AddIcon />
-           <span className="add__task-text"> Додайте завдання</span>
-            {add===true? <AddTaskForm/> :  "" }
-      </a>
-     
-      
-     
+
+            <div className='add__task' onClick={() => setOpen(true)}>
+                  <AddIcon />
+                  <span className="add__task-text"> Додайте завдання</span>
+                  {open ? <AddTaskForm addTask={addTask} parentId={parentId} setOpen={setOpen} /> : null}
+            </div>
+
+
+
       );
 }
 
