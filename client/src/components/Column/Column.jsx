@@ -8,8 +8,7 @@ import "./style.scss"
 
 const api_base = 'http://127.0.0.1:3001';
 
-export function Column({ columnTitle, taskList, columnId, deleteCard,
-	updateTaskTitle, addTask, deleteTask }) {
+export function Column({ columnTitle, columnId, deleteCard }) {
 
 
 
@@ -23,7 +22,7 @@ export function Column({ columnTitle, taskList, columnId, deleteCard,
 
 					<DeleteIcon onClick={() => deleteCard(columnId)} />
 				</div>
-				{taskList.map(curr => (
+				{/* {taskList.map(curr => (
 					<Task
 						// Task Properties
 						taskTitle={curr.title}
@@ -34,10 +33,10 @@ export function Column({ columnTitle, taskList, columnId, deleteCard,
 
 						// Task Functions
 						updateTaskTitle={updateTaskTitle}
-						deleteTask={deleteTask}/>))}
+						deleteTask={deleteTask}/>))} */}
 
 
-				<AddTask addTask={addTask} parentId={columnId} />
+				{/* <AddTask addTask={addTask} parentId={columnId} /> */}
 
 			</div>
 		</div>
