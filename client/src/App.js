@@ -1,42 +1,29 @@
 import "./App.scss"
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
-import { loadList, deleteList } from "./redux/actions";
+import { loadList, deleteList, createList } from "./redux/actions";
 import { Column } from "./components/Column";
 import { AddList } from "./components/AddList";
 
 
 
-
-
 function App() {
-
-
 	const dispatch = useDispatch();
 
-	const { lists } = useSelector((state) => state.data)
-	const status = useSelector((state) => state.data.loading)
-
-
-
-	console.log("lists", lists[0])
+	const { loading, lists } = useSelector((state) => state.list)
 
 	useEffect(() => {
-		if (status === "true") {
-			console.log("Loading...")
-		} else {
+		if (!loading) {
 			dispatch(loadList())
 		}
+	}, [loading])
 
 
-
-	}, [status, dispatch])
-
- const handleSubmit=()=>{
-	if(window.confirm("Are you sure wanted to delete this card ?")){
-		dispatch(deleteList())
+	const handleDelete = (id) => {
+		if (window.confirm("Are you sure wanted to delete this card ?")) {
+			dispatch(deleteList(id))
+		}
 	}
- }
 
 	// const [list, setList] = useState([]);
 	// const [task, setTask] = useState([]);
@@ -130,9 +117,9 @@ function App() {
 			<h1>Your board</h1>
 			<div className="wrapper">
 
-				{lists.length > 0 ? lists.map(item => (
+				{lists ? lists.map(item => (
 					<Column
-					
+
 						// key={item.id}
 
 						columnTitle={item.title}
@@ -140,9 +127,9 @@ function App() {
 						// taskList={task.filter((curr) => curr.column === item.id)}
 						columnId={item.id}
 
-					// Card Functions
-					// updateCardTitle={updateTaskTitle}
-					deleteCard={handleSubmit}
+						// Card Functions
+						// updateCardTitle={updateTaskTitle}
+						deleteCard={handleDelete}
 					// addList={addList}
 
 					// // Task Functions
@@ -153,7 +140,7 @@ function App() {
 				)) : (
 					<p>You currently have no lists</p>
 				)}
-				{/* <AddList addList={addList} /> */}
+				<AddList />
 			</div>
 		</div>
 	);

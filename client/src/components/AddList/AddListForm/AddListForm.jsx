@@ -3,13 +3,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState, useEffect } from 'react';
 
 import "./style.scss"
+import { useDispatch } from 'react-redux';
+import { createList } from '../../../redux/actions';
 
-const api_base = "http://localhost:3001"
 
+export function AddListForm({ setOpen, open }) {
 
-export function AddListForm({ addList, setOpen,open }) {
-
+	const dispatch = useDispatch();
 	const [title, setTitle] = useState('');
+
+
 
 	const handleClose = () => (e) => {
 		e.stopPropagation()
@@ -18,20 +21,20 @@ export function AddListForm({ addList, setOpen,open }) {
 
 	const handleAddSubmit = (e) => {
 		e.preventDefault();
-		if (title === ''){
-				return;
+		if (title === '') {
+			return;
 		}
-		else{
-			 addList( title);
-			 setTitle('');
+		else {
+			dispatch(createList(title));
+			setTitle('');
 		}
-}
+	}
 	return (
 		<div className="form">
 			{open ? <div className='add-form'>
 
-				<input className='add-form__input' type="text" name="name" placeholder="Увести назву списку..."  
-				 value={title} onChange={(e) => setTitle(e.target.value)} />
+				<input className='add-form__input' type="text" name="name" placeholder="Увести назву списку..."
+					value={title} onChange={(e) => setTitle(e.target.value)} />
 				<div className='add-form__buttons'>
 					<button className='add-form__btn btn' onClick={handleAddSubmit}>Додати список</button>
 					<CloseIcon className='close' onClick={handleClose()} />

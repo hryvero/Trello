@@ -5,7 +5,7 @@ import rootReducer from "./root-reducer"
 
 const middlewares=[reduxThunk]
 
-const store=configureStore({reducer: rootReducer},applyMiddleware(...middlewares));
+const store = configureStore({reducer: rootReducer}, applyMiddleware(...middlewares));
 
 
 export default store;
