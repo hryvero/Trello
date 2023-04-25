@@ -1,13 +1,10 @@
-import * as types from "./actionType"
+import * as types from "./listType"
 import axios from "axios"
 
 const API_BASE = 'http://127.0.0.1:3001';
 
 export const loadList = () => {
   return async function (dispatch) {
-    // await dispatch({
-    //   type: types.PREFETCH_LIST
-    // });
     await axios.get(API_BASE + "/columns").then(({ data }) => {
       dispatch({
         type: types.GET_LISTS,

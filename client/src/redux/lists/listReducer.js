@@ -1,4 +1,4 @@
-import * as types from "./actionType"
+import * as types from "./listType"
 
 const initialState = {
   lists: [],
@@ -7,11 +7,17 @@ const initialState = {
 
 const listReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.PREFETCH_LIST:
-      return {
-        ...state,
-        loading: true
-      }
+    // case types.UPDATE_LIST:
+    //   return state.lists.map((item) => {
+    //     if (item.id === action.payload.id) {
+    //       return {
+    //         ...state.lists,
+    //         ...action.payload,
+    //       };
+    //     } else {
+    //       return state.lists;
+    //     }
+    //   });
     case types.GET_LISTS:
       return {
         ...state,

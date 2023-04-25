@@ -1,7 +1,7 @@
 import "./App.scss"
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
-import { loadList, deleteList, createList } from "./redux/actions";
+import { loadList, deleteList, createList } from "./redux/lists/listActions";
 import { Column } from "./components/Column";
 import { AddList } from "./components/AddList";
 
@@ -108,9 +108,6 @@ function App() {
 	// 		method: 'DELETE'
 	// 	});
 	// }
-
-
-
 
 	return (
 		<div className="App">
