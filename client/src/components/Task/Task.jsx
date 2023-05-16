@@ -3,6 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import LastUpdated from "../LastUpdated/LastUpdated"
+import { useDispatch } from 'react-redux';
+import { updateTask, deleteTask } from '../../redux/tasks/taskActions';
 
 import "./style.scss"
 
@@ -11,16 +13,12 @@ import "./style.scss"
 export function Task({ taskTitle,
 	taskId,
 	updatedAt,
-	updateTaskTitle,
-	deleteTask }) {
+	}) {
 
-
+		const dispatch = useDispatch();
 
 	const [open, setOpen] = useState(false)
-
-
 	const [newTaskTitle, setNewTaskTitle] = useState('');
-	const [taskTitleChangeBool, setTaskTitleChangeBool] = useState(false);
 
 
 	const handleUpdateSubmit = (e) => {
@@ -29,12 +27,20 @@ export function Task({ taskTitle,
 			return;
 		}
 		else {
-			updateTaskTitle(taskId, newTaskTitle);
+		dispatch(updateTask(taskId, newTaskTitle))	;
 			setNewTaskTitle('');
-			setTaskTitleChangeBool(!taskTitleChangeBool);
 			setOpen(false)
 		}
 	}
+
+	const handleDelete = async(id) => {
+		if (window.confirm("Do you really want to delete this task ?")) {
+			await dispatch(deleteTask(id));
+			
+		}
+	}
+
+
 
 
 	return (
@@ -57,7 +63,7 @@ export function Task({ taskTitle,
 					<div className="task__box">
 
 						<EditIcon onClick={() => setOpen(true)} />
-						<DeleteIcon onClick={() => deleteTask(taskId)} />
+						<DeleteIcon onClick={() => handleDelete(taskId)} />
 					</div>
 				</div>}
 

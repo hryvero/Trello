@@ -16,10 +16,21 @@ export const loadTask = () => {
 
 export const deleteTask = (id) => {
   return async function (dispatch) {
-    await axios.delete(API_BASE + "/tasks/" + id).then(({ data }) =>()=> {
+    await axios.delete(API_BASE + "/tasks/" + id).then(({ data }) => {
       dispatch({
         type: types.DELETE_TASK,
         payload: { id }
+      });
+    }).catch(err => console.log(err));
+  }
+}
+
+export const updateTask = (id, newTitle) => {
+  return async function (dispatch) {
+    await axios.put(API_BASE + "/tasks/" + id, {title: newTitle}).then((res) => {
+      dispatch({
+        type: types.UPDATE_TASK,
+        payload: res.data
       });
     }).catch(err => console.log(err));
   }

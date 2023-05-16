@@ -3,7 +3,7 @@ import { Task } from '../Task';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AddTask } from '../AddTask/AddTask';
 import { useDispatch, useSelector } from "react-redux"
-import { loadTask, deleteTask, createTask } from "../../redux/tasks/taskActions";
+import { loadTask, updateTask, deleteTask, createTask } from "../../redux/tasks/taskActions";
 
 import "./style.scss"
 
@@ -13,12 +13,7 @@ import "./style.scss"
 export function Column({ columnTitle, columnId, deleteCard, taskList, tasks, deleteTask }) {
 	const dispatch = useDispatch();
 
-	const handleDelete = async(id) => {
-		if (window.confirm("Are you sure wanted to delete this card ?")) {
-			await dispatch(deleteTask(id));
-			await dispatch(loadTask())
-		}
-	}
+
 
 
 
@@ -40,7 +35,8 @@ export function Column({ columnTitle, columnId, deleteCard, taskList, tasks, del
 						parentId={columnId}
 
 						// Task Functions
-						deleteTask={handleDelete}
+						// deleteTask={handleDelete}
+						// updateTaskTitle={updateTaskTitle}
 					/>))}
 
 

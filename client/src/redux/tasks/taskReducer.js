@@ -7,17 +7,15 @@ const initialState = {
 
 const taskReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case types.UPDATE_LIST:
-    //   return state.lists.map((item) => {
-    //     if (item.id === action.payload.id) {
-    //       return {
-    //         ...state.lists,
-    //         ...action.payload,
-    //       };
-    //     } else {
-    //       return state.lists;
-    //     }
-    //   });
+    case types.UPDATE_TASK:
+          return {
+            ...state,
+            tasks: state.tasks.map(
+              item=> item._id===action.payload.id
+              ? action.payload
+              : item
+            )
+          }
     case types.GET_TASKS:
       return {
         ...state,
