@@ -11,8 +11,6 @@ import "./style.scss"
 export function Task({ taskTitle,
 	taskId,
 	updatedAt,
-
-
 	updateTaskTitle,
 	deleteTask }) {
 

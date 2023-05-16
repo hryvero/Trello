@@ -2,46 +2,43 @@ import React from 'react';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-
+import { useDispatch } from 'react-redux';
+import { createTask } from '../../../redux/tasks/taskActions';
 import "./style.scss"
 
 
 
-export function AddTaskForm({ setOpen,addTask, parentId}) {
+export function AddTaskForm({ setOpen, parentId}) {
 
-	// console.log(id)
+	const dispatch = useDispatch();
 
-	const [addTaskTitle, setAddTaskTitle] = useState('')
-
-	const handleClose = () => (e) => {
-		setOpen(false)
-		e.stopPropagation()
-	}
+	const [title, setTitle] = useState([]);
 
 	const handleAddSubmit = (e) => {
 		e.preventDefault();
-		if (addTaskTitle === ''){
-				return;
+		if (title === '') {
+			return;
 		}
-		else{
-			 addTask(parentId, addTaskTitle);
-			 setAddTaskTitle('');
+		else {
+			const newTask={
+				title,
+				column: parentId
+			}
+			dispatch(createTask(newTask));
+			setTitle('');
+			setOpen(false)
 		}
-}
-
-	
+	}
 
 	return (
 		<div className="form">
 			<form className='add-form' action="">
 				<input className='add-form__input' type="text" name="title" placeholder="Увести назву завдання..." 
-				value={addTaskTitle} onChange={event => setAddTaskTitle(event.target.value)} />
+				value={title} onChange={event => setTitle(event.target.value)} />
 				<div className='add-form__buttons'>
 					<button className='add-form__btn btn' onClick={handleAddSubmit}>Додати завдання</button>
-					<CloseIcon onClick={handleClose()} className='close' />
 				</div>
 			</form>
-			{/* <Task id={id} title={title} setTitle={setTitle}/> */}
 		</div>
 	);
 }

@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Task } from '../Task';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { AddTask } from '../AddTask/AddTask';
+import { useDispatch, useSelector } from "react-redux"
+import { loadTask, deleteTask, createTask } from "../../redux/tasks/taskActions";
 
 import "./style.scss"
 
 
-const api_base = 'http://127.0.0.1:3001';
 
-export function Column({ columnTitle, columnId, deleteCard }) {
 
+export function Column({ columnTitle, columnId, deleteCard, taskList, tasks, deleteTask }) {
+	const dispatch = useDispatch();
+
+	const handleDelete = async(id) => {
+		if (window.confirm("Are you sure wanted to delete this card ?")) {
+			await dispatch(deleteTask(id));
+			await dispatch(loadTask())
+		}
+	}
 
 
 
@@ -22,21 +31,20 @@ export function Column({ columnTitle, columnId, deleteCard }) {
 
 					<DeleteIcon onClick={() => deleteCard(columnId)} />
 				</div>
-				{/* {taskList.map(curr => (
+				{taskList.map(curr => (
 					<Task
 						// Task Properties
 						taskTitle={curr.title}
 						taskId={curr.id}
 						updatedAt={curr.updatedAt}
-			
 						parentId={columnId}
 
 						// Task Functions
-						updateTaskTitle={updateTaskTitle}
-						deleteTask={deleteTask}/>))} */}
+						deleteTask={handleDelete}
+					/>))}
 
 
-				{/* <AddTask addTask={addTask} parentId={columnId} /> */}
+				<AddTask parentId={columnId} />
 
 			</div>
 		</div>

@@ -1,23 +1,16 @@
 import React from 'react';
-import CloseIcon from '@mui/icons-material/Close';
 import { useState, useEffect } from 'react';
 
 import "./style.scss"
 import { useDispatch } from 'react-redux';
-import { createList } from '../../../redux/actions';
+import { createList } from '../../../redux/lists/listActions';
 
 
-export function AddListForm({ setOpen, open }) {
+export function AddListForm({ setOpen }) {
 
 	const dispatch = useDispatch();
 	const [title, setTitle] = useState('');
 
-
-
-	const handleClose = () => (e) => {
-		e.stopPropagation()
-		setOpen(false)
-	}
 
 	const handleAddSubmit = (e) => {
 		e.preventDefault();
@@ -27,19 +20,19 @@ export function AddListForm({ setOpen, open }) {
 		else {
 			dispatch(createList(title));
 			setTitle('');
+			setOpen(false)
 		}
 	}
 	return (
 		<div className="form">
-			{open ? <div className='add-form'>
+			 <div className='add-form'>
 
 				<input className='add-form__input' type="text" name="name" placeholder="Увести назву списку..."
 					value={title} onChange={(e) => setTitle(e.target.value)} />
 				<div className='add-form__buttons'>
 					<button className='add-form__btn btn' onClick={handleAddSubmit}>Додати список</button>
-					<CloseIcon className='close' onClick={handleClose()} />
 				</div>
-			</div> : null}
+			</div> 
 		</div>
 	);
 }

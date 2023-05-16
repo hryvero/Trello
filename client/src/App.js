@@ -2,6 +2,7 @@ import "./App.scss"
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { loadList, deleteList, createList } from "./redux/lists/listActions";
+import { loadTask, deleteTask, createTask } from "./redux/tasks/taskActions";
 import { Column } from "./components/Column";
 import { AddList } from "./components/AddList";
 
@@ -10,7 +11,17 @@ import { AddList } from "./components/AddList";
 function App() {
 	const dispatch = useDispatch();
 
-	const { loading, lists } = useSelector((state) => state.list)
+	const {  lists } = useSelector((state) => state.list)
+	const {  loading,tasks } = useSelector((state) => state.tasks)
+	
+
+	useEffect(() => {
+		if(!loading){
+			dispatch(loadTask())
+		}
+			
+	}, [loading])
+	
 
 	useEffect(() => {
 		if (!loading) {
@@ -19,88 +30,18 @@ function App() {
 	}, [loading])
 
 
-	const handleDelete = (id) => {
+	const handleDelete =  (id) => {
 		if (window.confirm("Are you sure wanted to delete this card ?")) {
-			dispatch(deleteList(id))
+		 dispatch(deleteList(id))
 		}
 	}
 
-	// const [list, setList] = useState([]);
-	// const [task, setTask] = useState([]);
 
-	// useEffect(() => {
-	// 	GetTasks();
-	// }, []);
-
-	// const GetTasks = () => {
-	// 	fetch(api_base + '/tasks/')
-	// 		.then(res => res.json())
-	// 		.then(({ data }) => setTask(data))
-	// 		.catch((err) => console.error("Error: ", err));
+	// 	const deleteTask = (id) => {
+	// 	if (window.confirm("Are you sure want to delete this task ?")) {
+	// 		dispatch(deleteTask(id))
+	// 	}
 	// }
-
-	// // ------ TASK'S STATE ------
-	// // Update Card Title && Update State
-
-	// const addList = async (addedTitle) => {
-	// 	const data = await fetch(api_base + "/columns/", {
-	// 		method: "POST",
-	// 		headers: {
-	// 			'Accept': 'application/json',
-	// 			"Content-Type": "application/json"
-	// 		},
-	// 		body: JSON.stringify({
-	// 			title: addedTitle,
-	// 		})
-	// 	}).then(res => {
-	// 		return res.json()
-	// 	})
-	// 	setList([...list, data])
-	// }
-	// const deleteList = async (id) => {
-
-	// 	const data = await fetch(api_base + '/columns/' + id, { method: "DELETE" }).then(res => res.json());
-
-
-	// 	console.log(data)
-	// 	setList(list => list.filter(item => item._id !== id));
-	// }
-
-	// // ------ TASK'S STATE ------
-	// const updateTaskTitle = async (id, newName) => {
-	// 	const data = await fetch(api_base + "/tasks/" + id, {
-	// 		method: 'PUT',
-	// 		headers: {
-	// 			'Accept': 'application/json',
-	// 			'Content-Type': 'application/json',
-	// 		},
-	// 		body: JSON.stringify({
-	// 			title: newName
-	// 		})
-	// 	}).then(res => res.json());
-
-	// 	setTask(task.map(item => item.id === data.id ? data : item))
-	// }
-
-	// // Add Task to Card & Update State
-
-	// const addTask = async (parentId, addedTitle) => {
-	// 	const data = await fetch(api_base + "/tasks/", {
-	// 		method: "POST",
-	// 		headers: {
-	// 			'Accept': 'application/json',
-	// 			"Content-Type": "application/json"
-	// 		},
-	// 		body: JSON.stringify({
-	// 			title: addedTitle,
-	// 			column: parentId,
-	// 		})
-	// 	}).then(res => {
-	// 		return res.json()
-	// 	})
-	// 	setTask([...task, data])
-	// }
-
 	// const deleteTask = async (id) => {
 	// 	setTask(task.filter(item => item.id !== id));
 
@@ -121,9 +62,9 @@ function App() {
 
 						columnTitle={item.title}
 
-						// taskList={task.filter((curr) => curr.column === item.id)}
+						taskList={tasks.filter((curr) => curr.column === item.id)}
 						columnId={item.id}
-
+					
 						// Card Functions
 						// updateCardTitle={updateTaskTitle}
 						deleteCard={handleDelete}
@@ -132,7 +73,7 @@ function App() {
 					// // Task Functions
 					// updateTaskTitle={updateTaskTitle}
 					// addTask={addTask}
-					// deleteTask={deleteTask}
+					deleteTask={deleteTask}
 					/>
 				)) : (
 					<p>You currently have no lists</p>

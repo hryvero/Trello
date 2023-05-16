@@ -10,7 +10,8 @@ const TaskSchema = new Schema(
           ref: 'Column'
         }
       },
-      { timestamps: true, virtuals: true, versionKey: false }
+      { timestamps: true, virtuals: true, versionKey: false },
+      { typeKey: '$type' }
     );
 
     TaskSchema.set('toJSON', { virtuals: true });
