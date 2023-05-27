@@ -37,6 +37,7 @@ export function AddTaskForm({ setOpen, parentId}) {
 				value={title} onChange={event => setTitle(event.target.value)} />
 				<div className='add-form__buttons'>
 					<button className='add-form__btn btn' onClick={handleAddSubmit}>Додати завдання</button>
+					<CloseIcon className='close' onClick={()=>setOpen(false)}/>
 				</div>
 			</form>
 		</div>

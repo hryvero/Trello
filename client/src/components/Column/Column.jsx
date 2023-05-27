@@ -24,7 +24,7 @@ export function Column({ columnTitle, columnId, deleteCard, taskList, tasks, del
 				<div className="card__title">
 					<h3>{columnTitle}</h3>
 
-					<DeleteIcon onClick={() => deleteCard(columnId)} />
+					<DeleteIcon className='delete' onClick={() => deleteCard(columnId)} />
 				</div>
 				{taskList.map(curr => (
 					<Task
@@ -33,10 +33,6 @@ export function Column({ columnTitle, columnId, deleteCard, taskList, tasks, del
 						taskId={curr.id}
 						updatedAt={curr.updatedAt}
 						parentId={columnId}
-
-						// Task Functions
-						// deleteTask={handleDelete}
-						// updateTaskTitle={updateTaskTitle}
 					/>))}
 
 

@@ -46,17 +46,12 @@ export function Task({ taskTitle,
 	return (
 		<div className="task">
 			{open ?
-				<form className="update-form" >
-					<input
-						className="update-task"
-						type="text"
-						autoFocus
-						placeholder={taskTitle}
-						onChange={event => setNewTaskTitle(event.target.value)}
-					/>
-					<div className='buttons-container'>
-					<button onClick={handleUpdateSubmit} className='btn'>Submit </button>
-					<CloseIcon onClick={() => setOpen(false)} />
+				<form className="form" >
+					<input className='add-form__input' type="text" name="name" placeholder={taskTitle} autoFocus
+					 value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} />
+					<div className='add-form__buttons'>
+					<button className='add-form__btn btn' onClick={handleUpdateSubmit}>Змінити список </button>
+					<CloseIcon className='close' onClick={() => setOpen(false)} />
 					</div>
 				</form>
 				: <div className="content">
@@ -64,8 +59,8 @@ export function Task({ taskTitle,
 					<LastUpdated date={updatedAt} locale="en-US" timeStyle="twitter"/>
 					<div className="task__box">
 
-						<EditIcon onClick={() => setOpen(true)} />
-						<DeleteIcon onClick={() => handleDelete(taskId)} />
+						<EditIcon className='edit' onClick={() => setOpen(true)} />
+						<DeleteIcon className='delete' onClick={() => handleDelete(taskId)} />
 					</div>
 				</div>}
 

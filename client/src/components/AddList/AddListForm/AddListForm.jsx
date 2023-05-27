@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
+import CloseIcon from '@mui/icons-material/Close';
 import "./style.scss"
 import { useDispatch } from 'react-redux';
 import { createList } from '../../../redux/lists/listActions';
@@ -31,6 +31,7 @@ export function AddListForm({ setOpen }) {
 					value={title} onChange={(e) => setTitle(e.target.value)} />
 				<div className='add-form__buttons'>
 					<button className='add-form__btn btn' onClick={handleAddSubmit}>Додати список</button>
+					<CloseIcon onClick={()=>setOpen(false)}/>
 				</div>
 			</div> 
 		</div>

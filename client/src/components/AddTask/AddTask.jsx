@@ -12,12 +12,12 @@ export function AddTask({addTask,parentId}) {
 
       return (
             <div>
-            <div className='add__task' onClick={() => setOpen(true)}>
+          
+{open ? <AddTaskForm addTask={addTask} parentId={parentId} setOpen={setOpen} /> :   <div className='add__task' onClick={() => setOpen(true)}>
                   <AddIcon />
                   <span className="add__task-text"> Додайте завдання</span>
                   
-            </div>
-{open ? <AddTaskForm addTask={addTask} parentId={parentId} setOpen={setOpen} /> : null}
+            </div>}
 </div>
 
       );

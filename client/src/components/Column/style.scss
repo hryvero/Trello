@@ -21,3 +21,14 @@
       margin-bottom: 10px;
      }
 }
+.delete{
+      cursor: pointer;
+}
+.edit{
+      cursor: pointer;
+}
+.close{
+      border-radius: 2px;
+      border: 0.2px solid black;
+      background-color: rgb(180, 2, 2);
+}

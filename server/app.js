@@ -4,14 +4,17 @@ const swagger = require('swagger-ui-express');
 const cors = require('cors');
 const winston = require('winston');
 const expressWinston = require('express-winston');
+const server = require('http').createServer();
 
 require('./models');
 const logger = require('./services/logger');
-const {MONGO_URL, PORT}= require("./configs/config")
+const { PORT}= require("./configs/config")
 const { _mainErrorHandler, notFoundError } = require("./errors/error.handler");
 const {taskRouter, columnRouter }= require("./routes")
 const swaggerJson = require('./swagger.json')
 
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 
@@ -31,7 +34,8 @@ async function init () {
 
   app.use(cors({origin: '*'}));
 
-  await mongoose.connect(MONGO_URL,
+
+  await mongoose.connect(process.env.MONGO_URL,
   { useNewUrlParser: true, useUnifiedTopology: true }).then((value) => {
     logger.info("Connection success");
   });
