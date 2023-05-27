@@ -54,8 +54,10 @@ export function Task({ taskTitle,
 						placeholder={taskTitle}
 						onChange={event => setNewTaskTitle(event.target.value)}
 					/>
+					<div className='buttons-container'>
 					<button onClick={handleUpdateSubmit} className='btn'>Submit </button>
 					<CloseIcon onClick={() => setOpen(false)} />
+					</div>
 				</form>
 				: <div className="content">
 					<h4 className="task__title">{taskTitle}</h4>
