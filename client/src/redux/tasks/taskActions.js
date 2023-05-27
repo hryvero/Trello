@@ -1,7 +1,7 @@
 import * as types from "./taskType"
 import axios from "axios"
 
-const API_BASE = 'http://127.0.0.1:3001';
+const API_BASE = 'https://trello-boards.onrender.com';
 
 export const loadTask = () => {
   return async function (dispatch) {
