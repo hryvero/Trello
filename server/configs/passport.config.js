@@ -3,8 +3,8 @@ const dotenv = require("dotenv");
 dotenv.config()
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
-CLIENT_ID=process.env.CLIENT_ID || "254437401158-qjh5han6ekilpld0014klcqqdgokfp1e.apps.googleusercontent.com"
-CLIENT_SECRET=process.env.CLIENT_SECRET || "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"
+CLIENT_ID=process.env.CLIENT_ID 
+CLIENT_SECRET=process.env.CLIENT_SECRET 
 
 passport.use(new GoogleStrategy({
     clientID: CLIENT_ID,
